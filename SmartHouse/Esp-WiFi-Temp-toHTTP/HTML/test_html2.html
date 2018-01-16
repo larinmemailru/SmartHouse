@@ -1,0 +1,194 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<style>
+.horizontal-click [name="vkl"] { display: none; }
+
+.horizontal-click > :not(input):not(label) { /* Скрытая вкладка */
+  overflow: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0 .5em;
+  border: 3px solid #DCDCDC; /*#808080  Рамка вокруг div*/ 
+  border-top-style: none;
+  transition: .5s;
+ }
+
+/* Закрытая вкладка */
+.horizontal-click > label {
+  overflow: hidden;
+  display: block;
+  padding: .5em 1em;
+  background: #87CEFA; /* 87CEFA#606060 цвет фона закрытой вкладки*/
+  color: rgb(0,0,0); /*цвет текста*/
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  
+  position: relative;
+  /* размеры кнопки всей */
+  width: 100% - 10px;
+  height: 10px; 
+  background: linear-gradient(#def 19%, #7ac 81%);
+}
+
+/* Размер поля текста открытой вкладки */
+.horizontal-click > :checked + label + * {
+  overflow: auto;
+  height: 400px; /* Высота открытого поля ввода */
+  
+}
+
+input {
+	width: 100px;
+	font-size: 13px;
+	padding: 6px 0 4px 10px;
+	border: 1px solid #cecece;
+	background: #98FB98; /* #F6F6f6;  */
+	border-radius: 8px;
+}
+/*Если за пределами диапозона отмечены красным*/
+input:out-of-range {
+	width: 100px;
+	font-size: 13px;
+	padding: 6px 0 4px 10px;
+	border: 1px dashed red;
+	box-shadow: 0 0 5px 3px red;
+	background: #98FB98; /* #F6F6f6;  */
+	border-radius: 8px;
+}
+
+
+/* Фон и курсор открытой вкладки */
+.horizontal-click > :checked + label {
+  cursor: default;
+  height: 3vw; 
+  background: linear-gradient(#00BFFF 5%, #87CEEB 53%);  
+  color: rgb(0,0,0); /*цвет текста*/
+  font: bold 4vw Georgia, bold, serif;
+  text-align: center;
+
+
+      #zatemnenie {
+        background: rgba(102, 102, 102, 0.5);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+      }
+      #okno {
+        width: 300px;
+        height: 50px;
+        text-align: center;
+        padding: 15px;
+        border: 3px solid #0000cc;
+        border-radius: 10px;
+        color: #0000cc;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: #fff;
+      }
+      #zatemnenie:target {display: block;}
+      .close {
+        display: inline-block;
+        border: 1px solid #0000cc;
+        color: #0000cc;
+        padding: 0 12px;
+        margin: 10px;
+        text-decoration: none;
+        background: #f2f2f2;
+        font-size: 14pt;
+        cursor:pointer;
+      }
+      .close:hover {background: #e6e6ff;}
+
+}
+</style>
+<script type="text/javascript">
+
+	function input_err_minmax(input) {
+		if ( (input.value > input.max) || (input.value < input.min) ) {
+		  input.value = 0;   
+	   }
+		//input.value = input.min;
+	}
+	
+
+    function form_submit() {
+        
+		var x = document.getElementById("id1").max;
+		if( x != true ){
+			alert(x);
+		}
+		
+        var last_name = document.getElementsByName('id1').value ;
+		//alert('ergterdg');
+       // var first_name = document.getElementsByName('first_name').value ;
+       // var parention_name = document.getElementsByName('parention_name').value;
+        
+        // Данные указаны?
+        if( last_name != 3 )
+		{
+            
+            // Нет.
+            alert("Вы ввели не всю информацию. Заполните все поля!")
+        
+        } else {
+            
+            /* Указаны. 
+            ** Отправка формы.
+            */
+        //    document.getElementsByName('registration_form').submit();
+            
+        }
+    }
+</script>
+
+</head>
+
+<body>
+<div class="horizontal-click">
+  <input type="radio" name="vkl" id="vkl1" checked="checked"/>
+  <label for="vkl1"><-Общие настройки-></label>
+    <div id="zatemnenie">
+	  <table>
+	    <tr>
+		  <td>Пин подключения ленты:</td><td> &emsp; </td><td><input type="number" min=0 max=12 id="LedPIN1" required maxlength=2 placeholder="0" formnovalidate /></td>
+		</tr>
+		<tr>  
+		  <td>Количество RGB на ленте:</td><td> &emsp; </td><td><input type="number" min=4 max=1024 name="LedCount1" required maxlength=4 placeholder="4" required ></td>
+		</tr>  
+		<tr>  
+		  <td>Общая яркость:</td><td> &emsp; </td><td><input type="number" min=10 max=255 name="LedBridht1" size="200" placeholder="10" required /></td>
+		</tr>  
+		<tr>  
+		  <td>Проверка</td><td> &emsp; </td><td> <input id="id1" type="number" min="100" max="300" onblur="input_err_minmax(this)" required>  </td>
+		</tr>  
+	  </table>
+
+
+        
+      </div>
+	
+  <input type="radio" name="vkl" id="vkl2"/>
+  <label for="vkl2">Светодиодная лента</label>
+    <div>Вкладка 2
+    </div>
+	
+  <input type="radio" name="vkl" id="vkl3"/>
+  <label for="vkl3">Температура</label>
+    <div>Вкладка 3
+    </div>
+	
+</div>
+</body>
+
+</html>
+
