@@ -1,0 +1,36 @@
+.horizontal-click [name="vkl"] { display: none; }
+
+.horizontal-click > :not(input):not(label) { 			/* Скрытая вкладка */
+  overflow: hidden;										/* Прячет */
+  height: 0;											/* Прячет под собой */
+  /*margin: 0;*/
+  /*padding: 0 .5em;*/
+  border: 2px solid #DCDCDC; 					/*#808080  Рамка вокруг div*/ 
+  /*border-top-style: none;*/
+  transition: .3s;
+ }
+
+.horizontal-click > label {					/* Закрытая вкладка */
+  overflow: hidden;
+  display: block;
+  padding: .5em 1em;
+  background: #87CEFA; 						/* 87CEFA#606060 цвет фона закрытой вкладки*/
+  color: rgb(0,0,0); 						/* цвет текста на всех*/
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  
+	.horizontal-click > :checked + label {
+	 background: #FF0000; /*#454545;*/
+	cursor: default;
+	}
+  
+  position: relative;  /* размеры кнопки всей */
+  width: 100% - 10px;
+  height: 10px; 
+  background: linear-gradient(#def 19%, #7ac 81%);
+}
+
+.horizontal-click > :checked + label + * {			/* Размер поля текста открытой вкладки */
+  overflow: auto;
+  height: auto; 									/* Высота поля для ввода */
