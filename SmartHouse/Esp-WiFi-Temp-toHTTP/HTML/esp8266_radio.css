@@ -42,7 +42,7 @@
   
   
   
-/* Для переключателей checkbox */
+/* Для переключателей checkbox *//*
 input[name="check"], input[name="check"] {display: none;}
 
 input[name="check"] + label:before {
@@ -51,12 +51,11 @@ input[name="check"] + label:before {
     display: inline-block;
     border: 1px solid #000;
     font-size: 20px;    
-    line-height: 22px;
+    line-height: 20px;
     margin: -5px 5px 0 0;
     height: 20px;
     width: 20px;
     text-align: center;
-    vertical-align: middle;
     transition: color ease .3s;
 }
 
@@ -69,17 +68,15 @@ input[name="check"] + label:before {
     border: 1px solid #000;
     border-radius: 50%;
     display: inline-block;
-    border: 1px solid #000;
     font-size: 20px;    
     line-height: 20px;
     margin: -5px 5px 0 0;
-    height: 20px;
-    width: 20px;
+    height: 12px;
+    width: 12px;
     text-align: center;
     vertical-align: middle;
-    font-size: 0;    
-    transition: font-size ease .3s;
+    transition: font-size ease .4s;
 }
 input[name="check"]:checked + label:before {
-    font-size: 20px;    
-}
+    font-size: 10px;   
+}*/

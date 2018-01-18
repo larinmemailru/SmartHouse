@@ -11,33 +11,57 @@
  
  <body>
   <div id="header"><h1>Настройки</h1></div>
+<!--  
   <div id="sidebar">
     <p><a href="b_all.html">-----</a></p>
     <p><a href="b_author.html">-----</a></p>
   </div>
-  
+-->  
   
   <div id="content" class="horizontal-click">
+<!--*************************************************************************-->
 		<input type="radio" name="vkl" id="vkl1" checked="checked"/>
 		<label for="vkl1">ESP8266</label>
-		
-		<div>Вкладка 1</div>
+		<div>
+			Вкладка 1
+		</div>
+<!--*************************************************************************-->
 		<input type="radio" name="vkl" id="vkl2"/>
 		<label for="vkl2">WiFi</label>
-		
-		<div class="radio">
-			<!-- Элемент переключатель -->
-			<input id="check1" type="radio" name="check" value="check1">
-			<label for="check1">Checkbox No. 1</label>
-			<br>
-			<input id="check2" type="radio" name="check" value="check2">
-			<label for="check2">Checkbox No. 2</label>
-		</div>
+		<div id="wifi">
 			
-			<input type="radio" name="vkl" id="vkl3"/>
+			<input id="check1" type="radio" name="check" value="check1">
+			<label for="check1">Точка доступа WiFi</label>
+			<dl>
+			  <dt><label for="ap_name">Имя SSID:</label></dt>
+			  <dd><input id="ap_name" type="text" value="ESP8266" size=20px></dd>
+			
+			  <dt><label for="ap_name_l">Логин:</label></dt>
+			  <dd><input id="ap_name_l" type="password"  value="" size=20px></dd>
+			  
+			  <dt><label for="ap_name_p">Пароль:</label></dt>
+			  <dd><input id="ap_name_p" type="password"  value="" size=20px></dd>
+			</dl>
+			<hr align=center width=auto>		<!-- Горизонтальная линия -->
+			
+			<input id="check2" type="radio" name="check" value="check2">
+			<label for="check2">Клиент WIFI</label>
+			<dl>
+			  <dt><label for="cl_name">SSID:</label></dt>
+			  <dd><input id="cl_name" type="text" value="ESP8266" size=20px></dd>
+			
+			  <dt><label for="cl_name_p">Пароль SSID:</label></dt>
+			  <dd><input id="cl_name_p" type="password"  value="" size=20px></dd>
+			</dl>
+			
+		</div>
+<!--*************************************************************************-->
+		<input type="radio" name="vkl" id="vkl3"/>
 		<label for="vkl3">Заголовка 3</label>
-		
-		<div>Вкладка 3</div>
+		<div>
+			Вкладка 3
+		</div>
+<!--*************************************************************************-->
 	</div>
 	
   <div id="footer">&copy; NoName</div>
