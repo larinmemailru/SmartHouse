@@ -1,16 +1,41 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <EEPROM.h>
+//#include <Ticker.h>
+#include "DHTesp.h"  //Датчик температуры и влажности (DHT11,DHT22,AM2302,RHT03)
+#include <OneWire.h>  // OneWire DS18S20, DS18B20, DS1822 Temperature Example
+//#include "<function.ino>"
 
 #define DEBUG
 
 #define ledOFF digitalWrite(LED_BUILTIN, HIGH);
 #define ledON digitalWrite(LED_BUILTIN, LOW);
 
+#define ONE_WIRE_BUS 5
+// передаем объект oneWire объекту DS18B20:
+
+
 const char *ssid = "SISap55";
 const char *password = "1qaz2wsx";
 
+//ADC_MODE(ADC_VCC);  //Для Функции ESP.getVcc()
+
+//Ticker flipper;
+
 ESP8266WebServer server(80);
+
+//Используемые пины для подключения датчиков
+int8_t pin_t[]  =   {2, 4, 5, 12, 13, 14, 15, 16};
+int8_t sensor_pin_t[]  =   {0, 0, 0, 0, 0, 0, 0, 0};
+/* таблица кодов для сенсоров
+ * 0  - Сенсор отсутствуют
+ * 1  - Датчик температуры и влажности (DHT11,DHT22,AM2302,RHT03) - DHTesp.h
+ * 2  - Цифровой датчик температуры (DS18S20, DS18B20, DS1822) - OneWire.h
+*/
+
+DHTesp dht;
+
+OneWire oneWire(ONE_WIRE_BUS);
 
 void setup() {
   // Для управления синим светодиодом на плате ESP2866
@@ -19,12 +44,11 @@ void setup() {
   // Режим вывожа информации трассировки в консоль
   #ifdef DEBUG
     Serial.begin(115200);
-    Serial.print(millis());
     Serial.println("---------------------------------------------------------------");
   #endif
 
   // Резервируем область памяти для сохранения настроек
-  EEPROM.begin(512);
+  //EEPROM.begin(512);
 
   // Вколючение режима точки доступа
   WiFimodeAP(); 
@@ -38,49 +62,55 @@ void setup() {
   //clientName +=  ESP.getChipId();
 
   //loadConfig();
+  Serial.println("----------------------- Поиск сенсоров ------------------------");
+  scan_sensors();
+  Serial.println("---------------------------------------------------------------");
+
 
 }
 
-
 void loop() {
-  ledON; 
-  delay(100);   
-  ledOFF; 
-  delay(2000); 
 
   server.handleClient();
+
                      
 }
 
 //Перевод платы в режимы: Точки доступа, Клиент или совмещенный
 void WiFimodeAP() {
   //WiFi.mode(WIFI_AP);
+  
   WiFi.softAP(ssid, password);
   WiFi.begin();
-  WiFi.printDiag(Serial);
-
+// диагностическая информация
+  #ifdef DEBUG  
+   WiFi.printDiag(Serial);
+  #endif
+  
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
   Serial.println(myIP);
   server.on("/", handleRoot);
   server.begin();
   Serial.println("HTTP server started");
+  led_bip(4, 200);
 }
 
 
 void handleRoot() {
-  server.send(200, "text/html", "<h1>You are connected</h1>");
+  String html = "<h1>You are connected";
+        html += "<br>ID:";
+        html +=  ESP.getChipId();
+        html += "<br>time:";
+        html +=  ESP.getCycleCount();
+        html += "<br>vcc:";
+        html +=  ESP.getVcc();
+        
+        html += "</h1>";
+
+        
+  
+  server.send(200, "text/html", html);
+ 
 }
 
-// ------------------ Преобразование MAC адреса в читаемый вид ------------------
-String macToStr(const uint8_t* mac)
-{
-  String result;
-  for (int i = 0; i < 6; ++i) {
-    result += String(mac[i], 16);
-    if (i < 5)
-      result += ':';
-  }
-  return result;
-}
-// ------------------ Преобразование MAC адреса в читаемый вид ------------------
