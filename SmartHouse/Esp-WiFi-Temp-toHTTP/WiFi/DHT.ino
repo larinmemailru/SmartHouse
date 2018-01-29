@@ -43,7 +43,9 @@ ERROR_NONE  LITERAL1
 ERROR_TIMEOUT LITERAL1
 ERROR_CHECKSUM  LITERAL1
 */
+#include "DHTesp.h"  //Датчик температуры и влажности (DHT11,DHT22,AM2302,RHT03)
 
+DHTesp dht;
 
 void dht_scan(int8_t pin) {
   dht.setup(pin); // data pin 5 - D1(WeMos D1)
