@@ -1,19 +1,12 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <EEPROM.h>
 //#include <Ticker.h>
-#include "DHTesp.h"  //Датчик температуры и влажности (DHT11,DHT22,AM2302,RHT03)
-#include <OneWire.h>  // OneWire DS18S20, DS18B20, DS1822 Temperature Example
-//#include "<function.ino>"
+
 
 #define DEBUG
 
 #define ledOFF digitalWrite(LED_BUILTIN, HIGH);
 #define ledON digitalWrite(LED_BUILTIN, LOW);
-
-#define ONE_WIRE_BUS 5
-// передаем объект oneWire объекту DS18B20:
-
 
 const char *ssid = "SISap55";
 const char *password = "1qaz2wsx";
@@ -33,9 +26,8 @@ int8_t sensor_pin_t[]  =   {0, 0, 0, 0, 0, 0, 0, 0};
  * 2  - Цифровой датчик температуры (DS18S20, DS18B20, DS1822) - OneWire.h
 */
 
-DHTesp dht;
 
-OneWire oneWire(ONE_WIRE_BUS);
+
 
 void setup() {
   // Для управления синим светодиодом на плате ESP2866
